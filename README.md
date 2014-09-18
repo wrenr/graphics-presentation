@@ -1,4 +1,4 @@
 graphics-presentation
 =====================
 
-Short Presentation on Web Graphics with Reveal.js based on ebollens/WebBlocks-presentations
+Presentation on Web Graphics with [Reveal.js](http://lab.hakim.se/reveal-js/) based on [ebollens/WebBlocks-presentations](https://github.com/ebollens/WebBlocks-presentations/)
