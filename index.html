@@ -1,0 +1,339 @@
+<!doctype html>  
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WebGL In-"sights": Teachings from Graphics Masters</title>
+        <meta name="description" content="">
+        <meta name="author" content="Wren Reynolds Rose Rocchio">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/theme/default.css">
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script>
+            // If the query includes 'print-pdf' we'll use the PDF print sheet
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+        <!--[if lt IE 9]><script src="lib/js/html5shiv.js"></script><![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <!-- Used to fade in a background when a specific slide state is reached -->
+            <div class="state-background"></div>
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+            
+                <section>
+                    <hgroup>
+                        <h2>WebGL In-"sights" into Shaders, Shapes and Scenes</h2>
+                        <h4>Teachings from Graphics Masters</h4>
+                    </hgroup>
+                    <footer>
+                        <p>Wren Reynolds / <a href="mailto:wreynolds@oit.ucla.edu">wreynolds@oit.ucla.edu</a></p>
+                        <p>Rose Rocchio / <a href="mailto:rrocchio@oit.ucla.edu">rrocchio@oit.ucla.edu</a> / <a href="http://twitter.com/RoseRocchio" target="_blank">@RoseRocchio</a></p>
+                    </footer>
+                </section>
+                
+                <section>
+                    <h2>Overview</h2>
+                    <ol>
+                        <li class="fragment">Introduction</li>
+                        <li class="fragment">The Process (ORSCR)</li>
+                        <li class="fragment">Observation</li>
+                        <li class="fragment">Research</li>
+                        <li class="fragment">Sandbox</li>
+                        <li class="fragment">Creation</li>
+                        <li class="fragment">Refinement</li>
+                    </ol>
+                </section>
+                
+                <section>
+                    <section>
+                        <div class="feature" style="margin-top: 180px;">
+                            <h2>Introduction</h2>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>The Real MVPs</h2>
+                        <ul>
+                            <li class="fragment">Karan Singh - <a href="http://www.dgp.toronto.edu/~karan/sketchsculpt.htm">Perception, Drawing and Interactive Modeling</a> - Smart Graphics 2014 </li>
+                            <li class="fragment">Steven Wittens - <a href="https://www.youtube.com/watch?v=Zkx1aKv2z8o">Making Things with Maths</a> - Web Directions South 2014</li>
+                            <li class="fragment">Iñigo Quilez - <a href="http://on-demand.gputechconf.com/gtc/2014/video/S4550-shadertoy-fragment-shader.mp4">Shadertoy: Do You Know What a Fragment Shader Can Do?</a> - GPU Tech Conf 2014</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <div class="feature" style="margin-top: 180px;">
+                            <h2>The Process (ORSCR)</h2>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>The Process of Turning Reality Into Technical Visuals</h2>
+                        <ul>
+                            <li>Observation</li>
+                            <li>Research</li>
+                            <li>Sandbox</li>
+                            <li>Creation</li>
+                            <li>Refinement</li>
+                        </ul>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Observation</h2>
+                            <p>Using and understanding the senses</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Senses</h2>
+                        <ul>
+                            <li class="fragment">Not just sight</li>
+                            <li class="fragment">Kinesthetic: Touch, weight, proprioception (animation)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Karan Singh on Our Sensory Interfaces</h2>
+                        <ul>
+                            <li class="fragment">AUDIO IN</li>
+                            <li class="fragment">AUDIO OUT</li>
+                            <li class="fragment">VIDEO IN</li>
+                            <li class="fragment">VIDEO OUT</li>
+                            <li class="fragment bad">... That last one is biased</li>                            
+                        </ul>
+                    </section>
+                    <section>
+                        <div class="feature" style="margin-top: -100px;">
+                            <h2>How could vision be biased?</h2>
+
+                            <div class="fragment">
+                            <img src="img/cube-drawing.jpg" style="max-height: 300px"/>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="feature">
+                            <h2>Overcoming this bias</h2>
+                            <div class="fragment">
+                            <img src="img/perspective-drawing.jpg" style="max-height: 300px" /> <br /><small style="vertical-align: middle">graemmesamonte, DeviantArt</small>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Research</h2>
+                            <p>Knowing the tools and constraints</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Tools - Mathematics</h2>
+                        <ul>
+                            <li class="fragment good">"Each formula and symbol has an interpretation. It expresses an idea, a mechanism or an algorithm." - Steven Wittens</li>
+                            <li class="fragment">Building things with math, like Legos</li>
+                            <li class="fragment">With math you don't describe formulas... you describe things</li>
+                            <li class="fragment">Procedural Generation, "Math Machines", Physics</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2 style="margin-top:-50px">Constraints - Principles of CG</h2>
+                        <ul>
+                            <li class="fragment">Your retina is a grid of <strong>cone cells</strong> that react to light, The Graphics Processing Unit (GPU) is a virtual grid of <strong>pixels</strong> that react to <strong>shaders</strong></li>
+                            <li class="fragment">Graphics Pipeline - The Visual Cortex. Open Graphics Library (OpenGL) - interacts with this using a C-like shader definition language (GLSL)</li>
+                        </ul>
+                        <div class="fragment">
+                            <img src="img/webgl-shader-pipeline.png" style="max-height: 300px"/>
+                            <br /><small>Giles Bowkett - <a href="http://vimeo.com/87974285">"WebGL What the Hell"</a> - JSLA 2014-02-27</small>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Constraints - WebGL</h2>
+                        <ul>
+                            <li class="fragment">Advanced 3D computer graphics in your web browser</li>
+                            <li class="fragment bad">... SLOW Advanced 3D computer graphics in your web browser</li>
+                            <li class="fragment bad">... SLOW Advanced 3D computer graphics in <strike>your</strike> some web browserS</li>
+                            <li class="fragment bad">... SLOW Advanced 3D computer graphics in <strike>your</strike> some DESKTOP web browserS</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Why WebGL at all then?</h2>
+                        <ul>
+                            <li class="fragment">Great potential</li>
+                            <li class="fragment">A future with advanced graphics on any device</li>
+                            <li class="fragment">Based on a (limited, but still useful) subset of modern OpenGL - Leverages decades of graphics innovation on shaders, objects, environments, lighting, and <strong>many</strong> more</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Constraints - WebGL</h2>
+                        <ul>
+                            <li class="fragment">An interface for the Graphics Pipeline within your Javascript</li>
+                            <li class="fragment">Still requires writing shader code in C-like GLSL</li>
+                        </ul>
+                            <p class="fragment" style="font-size: 12px;background:black">// Vertex shader program 3 var VSHADER_SOURCE = 4   'attribute vec4 a_Position;\n' + 5   'void main() {\n' + 6   '  gl_Position = a_Position;\n' + 7   '}\n'; 8 9 // Fragment shader program 10 var FSHADER_SOURCE = 11   'void main() {\n' + 12   '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' + 13   '}\n'; 14 15 function main() {... 19   // Get the rendering context for WebGL 20   var gl = getWebGLContext(canvas); ... 26   // Initialize shaders 27   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {... 30   } 31 32   // Set the positions of vertices 33   var n = initVertexBuffers(gl); ... 39   // Set the color for clearing canvas ... 45   // Draw a triangle 46   gl.drawArrays (gl.TRIANGLES, 0, n); 47 } 48 49 function initVertexBuffers(gl) {50   var vertices = new Float32Array([51     0.0, 0.5,   -0.5, -0.5,  0.5, -0.5 52   ]); 53   var n = 3; // The number of vertices ... 78   return n; 79 }</p>
+                        <ul>
+                            <li class="fragment">That 70+ lines of code draws ... <span class="fragment bad">&#9650;</span></li>
+                            <li class="fragment">Libraries like three.js save you from some of this</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                   <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Sandbox</h2>
+                            <p>An environment to test and tinker</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>The Purpose of a Sandbox</h2>
+                        <ul>
+                            <li class="fragment">Play</li>
+                            <li class="fragment">Complements study - Learning by Doing</li>
+                            <li class="fragment">Experiment and test the limits of your tools</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Choosing a Sandbox</h2>
+                        <ul>
+                            <li class="fragment">Accurate</li>
+                            <li class="fragment">Real-time Feedback</li>
+                            <li class="fragment">Are there Useful Examples?</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Some example Web Graphics sandboxes</h2>
+                        <ul>
+                            <li class="fragment">Shaders - ShaderToy</li>
+                            <li class="fragment">Exploring 3D fractals - mandelbulber</li>
+                            <li class="fragment">Visualizing Functions - Grapher (Mac OS X)</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                   <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Creation</h2>
+                            <p>From concept to (Virtual) reality</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Sculpting Stone - Creation <em>(Artist: Jill Turndorf)</em></h2>
+                        <img class="fragment" src="img/sculpt-06.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-07.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-09.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-10.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-13.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-14.jpg" style="max-width:200px" />
+                    </section>
+                    <section>
+                        <h2>Unformed to Rough Concept</h2>
+                        <ul>
+                            <li class="fragment">Start with a blank canvas, uncarved block</li>
+                            <li class="fragment">Add one piece at a time</li>
+                            <li class="fragment">80/20 - Continue until it's 80% complete</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <div class="feature">                        
+                            <h2>DEMO: ShaderToy - Making Oobleck</h2>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                   <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Refinement</h2>
+                            <p>Feedback and Polish</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Sculpting Stone - Refinement <em>(Artist: Jill Turndorf)</em></h2>
+                        <img class="fragment" src="img/sculpt-15.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-16.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-17.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-18.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-19.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-20.jpg" style="max-width:200px" />
+                        <img class="fragment" src="img/sculpt-21.jpg" style="max-width:200px" />
+                    </section>
+                    <section>
+                        <h2>Rough Concept to Final Product</h2>
+                        <ul>
+                            <li class="fragment">Viewer Feedback Cycle</li>
+                            <li class="fragment">80/20 - Complete the last 20% of polish and prep</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                   <section>
+                        <div class="feature" style="margin-top: 200px;">
+                            <h2>Summary - The Process of Turning Reality Into Technical Visuals (ORSCR)</h2>
+                        </div>
+                        <ul>
+                            <li>Observation</li>
+                            <li>Research</li>
+                            <li>Sandbox</li>
+                            <li>Creation</li>
+                            <li>Refinement</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <h1>THANK YOU</h1>
+                    <h3>Any Questions?</h3>
+                    <p><br><a href="http://wrenr.github.io/graphics-presentation/" target="_blank">wrenr.github.io/graphics-presentation/</a></p>
+                    <br>
+                    <p>
+                        <small>
+                            <a href="https://github.com/wrenr" target="_blank">wrenr [GitHub]</a>
+                        </small>
+                    </p>
+                </section>
+            </div>
+
+            <!-- The navigational controls UI -->
+            <aside class="controls">
+                <a class="left" href="#">&#x25C4;</a>
+                <a class="right" href="#">&#x25BA;</a>
+                <a class="up" href="#">&#x25B2;</a>
+                <a class="down" href="#">&#x25BC;</a>
+            </aside>
+            <!-- Presentation progress bar -->
+            <div class="progress"><span></span></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+        <script>
+                // Full list of configuration options available here:
+                // https://github.com/hakimel/reveal.js#configuration
+                Reveal.initialize({
+                        controls: true,
+                        progress: true,
+                        history: true,
+                        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+                        // Optional libraries used to extend on reveal.js
+                        dependencies: [
+                                { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                                { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                                { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                                { src: 'socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                                { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                        ]
+                });
+        </script>
+    </body>
+</html>
